@@ -1,0 +1,85 @@
+{% load message_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Комната {{ room.name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'chat/css/styles.css' %}">
+</head>
+<body class="cr-white s-bg-secondary">
+    {% include '_inc/_header.html' %}
+
+    <main class="d-flex flex-row">
+        <div class="col-2 s-bg-secondary border-end overflow-y-auto">
+            <center class="py-1"><h4>Ваши комнаты:</h4></center>
+            <div class="d-flex flex-column px-3 py-1">
+                {% for room_l in rooms %}
+                    <div class="row py-1">
+                        {% if room == room_l %}
+                            <a class="btn">
+                                <div class="s-bg-sec-light cr-white rounded p-1">
+                                    {{ room_l.name }}
+                                </div>
+                            </a>
+                        {% else %}
+                            <a class="btn" href="{% url 'room' room_l.pk %}">
+                                <div class="s-bg-light cr-white rounded p-1">
+                                    {{ room_l.name }}
+                                </div>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-10 s-bg-sec-light d-flex flex-column">
+            {% if room %}
+                <div class="d-flex flex-column s-bg-secondary border-bottom px-3 py-1">
+                    <div class="d-flex flex-row justify-content-between">
+                        <h4>Комната: {{ room.name }}</h4>
+                        <a href="{% url 'leave_room' room.pk %}" class="btn s-bg-primary cr-secondary text-decoration-none">Выйти</a>
+                    </div>
+
+                    <h5>Код приглашения: {{ room.invite_code }}</h5>
+                </div>
+
+                <div class="d-flex flex-column overflow-y-auto p-3">
+                    {% include '_inc/_message.html' %}
+
+                    {% for message in room_messages %}
+                        {% ifchanged %}
+                            <div class="d-flex flex-column border rounded my-1 p-2 justify-content-between cr-white
+                                       {% if message.sender.username == request.user.username %} s-bg-light
+                                       {% else %} s-bg-sec-light {% endif %}">
+                                {% show_message message %}
+                            </div>
+                        {% endifchanged %}
+                    {% empty %}
+                        <h5>Нет сообщений</h5>
+                    {% endfor %}
+                </div>
+
+                <div class="d-flex flex-column border-top p-3">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                            {{ field }}
+                        {% endfor %}
+                        <input type="submit" value="Отправить" class="btn s-bg-primary cr-secondary my-2">
+                    </form>
+                </div>
+            {% else %}
+                <div class="d-flex flex-column align-items-center justify-content-center height-100">
+                    <h2>Выберите комнату</h2>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    {% include '_inc/_footer.html' %}
+</body>
+</html>

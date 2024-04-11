@@ -1,0 +1,16 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between p-3 border-bottom">
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center align-items-center mb-md-0">
+        <li><a href="{% url 'index' %}" class="nav-link px-2 cr-white text-decoration-none">Главная</a></li>
+        <li><a href="{% url 'user_rooms' %}" class="nav-link px-2 cr-white text-decoration-none">Комнаты</a></li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+        {% if request.user.is_anonymous %}
+            <a href="{% url 'log in' %}" class="btn s-bg-primary me-2 cr-secondary text-decoration-none">Авторизация
+            </a>
+            <a href="{% url 'regis' %}" class="btn s-bg-primary cr-secondary text-decoration-none">Регистрация</a>
+        {% else %}
+            <a href="{% url 'log out' %}" class="btn s-bg-primary cr-secondary text-decoration-none">Выход из аккаунта</a>
+        {% endif %}
+    </div>
+</header>

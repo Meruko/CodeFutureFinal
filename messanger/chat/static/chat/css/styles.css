@@ -1,0 +1,59 @@
+html, body {
+    height: 100%;
+}
+
+header {
+    height: 10%;
+}
+
+footer {
+    height: 10%;
+}
+
+main {
+    height: 80%;
+}
+
+.cr-white {
+    color: #ffffff;
+}
+
+.cr-primary {
+    color: #ffb17a;
+}
+
+.cr-secondary {
+    color: #2d3250;
+}
+
+.cr-sec-light {
+    color: #424769;
+}
+
+.cr-light {
+    color: #676ffd;
+}
+
+.s-bg-white {
+    background: #ffffff;
+}
+
+.s-bg-primary {
+    background: #ffb17a;
+}
+
+.s-bg-secondary {
+    background: #2d3250;
+}
+
+.s-bg-sec-light {
+    background: #424769;
+}
+
+.s-bg-light {
+    background: #676ffd;
+}
+
+.height-100 {
+    height: 100%;
+}
