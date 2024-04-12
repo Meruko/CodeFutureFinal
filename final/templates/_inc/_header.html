@@ -1,0 +1,19 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between p-3 border-bottom">
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center align-items-center mb-md-0">
+        <li><a href="{% url 'product_list' %}" class="nav-link px-2 text-decoration-none">Товары</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="{% url 'order_list' %}" class="nav-link px-2 text-decoration-none">Заказы</a></li>
+            <li><a href="{% url 'basket' %}" class="nav-link px-2 text-decoration-none">Корзина</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="col-md-3 text-end">
+        {% if request.user.is_anonymous %}
+            <a href="{% url 'log in' %}" class="btn btn-outline-primary me-2">Авторизация
+            </a>
+            <a href="{% url 'regis' %}" class="btn btn-outline-primary">Регистрация</a>
+        {% else %}
+            <a href="{% url 'log out' %}" class="btn btn-outline-primary">Выход из аккаунта</a>
+        {% endif %}
+    </div>
+</header>

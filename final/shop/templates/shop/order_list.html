@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+    Заказы
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-column overflow-y-auto overflow-x-hidden">
+        <h1>Заказы</h1>
+
+        <div class="row">
+            {% for obj in object_list %}
+                <div class="col-3 m-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>{{ obj }}</h5>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <h2>Заказов нет</h2>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
