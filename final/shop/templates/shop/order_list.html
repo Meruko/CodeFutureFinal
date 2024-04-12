@@ -5,21 +5,26 @@
 {% endblock %}
 
 {% block content %}
-    <div class="d-flex flex-column overflow-y-auto overflow-x-hidden">
-        <h1>Заказы</h1>
+    <h1>Заказы</h1>
 
-        <div class="row">
-            {% for obj in object_list %}
-                <div class="col-3 m-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>{{ obj }}</h5>
-                        </div>
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col-12 d-flex justify-content-center">
+                <div class="card my-3" style="width: 18rem">
+                    <div class="card-body">
+                        <h5 class="card-title">Заказ №{{ object.pk }}</h5>
+                        <p class="card-text"><b>Дата: </b>{{ object.date_create }}</p>
+                        <p class="card-text"><b>Состав заказа: </b></p>
+                        <ol>
+                            {% for pos_order in object.pos_order_set.all %}
+                                <li>{{ pos_order.product.name }} ({{ pos_order.product.category }}) - {{ pos_order.count }} шт.</li>
+                            {% endfor %}
+                        </ol>
                     </div>
                 </div>
-            {% empty %}
-                <h2>Заказов нет</h2>
-            {% endfor %}
-        </div>
+            </div>
+        {% empty %}
+            <h2>Заказов нет</h2>
+        {% endfor %}
     </div>
 {% endblock %}
