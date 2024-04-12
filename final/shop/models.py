@@ -41,6 +41,8 @@ class Order(models.Model):
         verbose_name='Дата завершения заказа'
     )
 
+    price = models.FloatField(null=True, blank=True, default=0.0, verbose_name='Стоимость')
+
     products = models.ManyToManyField('Product', through='Pos_order')
 
     def __str__(self):

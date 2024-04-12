@@ -17,9 +17,10 @@
                         <p class="card-text"><b>Состав заказа: </b></p>
                         <ol>
                             {% for pos_order in object.pos_order_set.all %}
-                                <li>{{ pos_order.product.name }} ({{ pos_order.product.category }}) - {{ pos_order.count }} шт.</li>
+                                <li>{{ pos_order.product.name }} ({{ pos_order.product.category }}) - {{ pos_order.sum_pos_order }}руб. ({{ pos_order.count }} шт.)</li>
                             {% endfor %}
                         </ol>
+                        <h5 class="card-title">Стоимость: {{ object.price }} руб.</h5>
                     </div>
                 </div>
             </div>

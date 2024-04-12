@@ -54,6 +54,7 @@ def basket_buy(request):
 
     customer = request.user
     order = Order.objects.create(customer=customer)
+    order.price = basket.get_total_price()
     message = f'<h1>Заказ №{order.pk}</h1><ul>'
     for item in basket:
         pos_order = Pos_order.objects.create(
@@ -62,7 +63,7 @@ def basket_buy(request):
             order=order
         )
         message += f'<li>{pos_order.product.name} ({pos_order.count} шт.) - {pos_order.sum_pos_order()} руб.</li>'
-    message += f'</ul><p>Всего: {basket.get_total_price()} руб. ({basket.__len__()} шт.)</p>'
+    message += f'</ul><p>Всего: {order.price} руб. ({basket.__len__()} шт.)</p>'
 
     basket.clear()
     messages.success(request, 'Заказ успешно оформлен!')
