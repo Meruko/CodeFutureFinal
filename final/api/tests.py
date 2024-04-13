@@ -4,7 +4,23 @@ from shop.models import Product, Category
 from api.serializers import ProductSerializer
 
 
-class NewsApiTestCase(APITestCase):
+class ProductApiTestCase(APITestCase):
+    def test_get(self):
+        category = Category.objects.create(
+            name='category'
+        )
+        product_1 = Product.objects.create(
+            name='product_1',
+            price=100,
+            category=category
+        )
+        url = f'/api/product/{product_1.pk}/'
+        response = self.client.get(url)
+        serial_data = ProductSerializer(product_1).data
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(serial_data, response.data)
+
     def test_get_list(self):
         category = Category.objects.create(
             name='category'
@@ -26,11 +42,13 @@ class NewsApiTestCase(APITestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serial_data, response.data)
 
-    def test_post_list(self):
+    def test_post(self):
         category = Category.objects.create(
+            pk=10,
             name='category'
         )
         product_1 = Product(
+            pk=10,
             name='product_1',
             price=237,
             category=category
@@ -41,7 +59,7 @@ class NewsApiTestCase(APITestCase):
         response = self.client.post(url, data={
             'name': 'product_1',
             'price': 237,
-            'category': category.pk,
+            'category': category.id,
             'exists': True
         })
 

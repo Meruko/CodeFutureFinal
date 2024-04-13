@@ -1,0 +1,15 @@
+<div class="d-flex align-items-center justify-content-center flex-column">
+    <div class="d-flex align-items-center flex-column border rounded p-3">
+        <h1>{{ title }}</h1>
+        <div class="d-flex flex-column align-items-center p-3">
+            <form method="post">
+                {% csrf_token %}
+
+                {{ form.as_div }}
+                <input type="submit" value="{{ title }}" class="btn btn-primary form-control my-2">
+            </form>
+
+            <a href="{% url url_name %}" class="text-decoration-none">Назад</a>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
 MAX_LENGTH_CHAR = 255
@@ -8,9 +8,6 @@ MAX_LENGTH_CHAR = 255
 class Category(models.Model):
     name = models.CharField(max_length=MAX_LENGTH_CHAR, unique=True, verbose_name='Название')
     description = models.TextField(null=True, blank=True, verbose_name='Описание')
-
-    def get_absolute_url(self):
-        return reverse_lazy('category_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.name
@@ -100,10 +97,10 @@ class Product(models.Model):
     price = models.FloatField(verbose_name='Цена')
     date_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания записи')
     date_update = models.DateTimeField(auto_now=True, verbose_name='Дата последнего обновления записи')
-    photo = models.ImageField(upload_to='image/%Y/%m/%d', null=True, blank=True, verbose_name='Фотография книги')
+    photo = models.ImageField(upload_to='image/%Y/%m/%d', null=True, blank=True, verbose_name='Фотография товара')
     exists = models.BooleanField(default=True, verbose_name='Существует ли?')
 
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     parameters = models.ManyToManyField(Parameter, through=Pos_parameter)
 
     def __str__(self):

@@ -67,7 +67,7 @@ def basket_buy(request):
 
     basket.clear()
     messages.success(request, 'Заказ успешно оформлен!')
-    mail = send_mail(
+    send_mail(
         subject=f'Заказ №{order.pk}',
         message='',
         html_message=message,

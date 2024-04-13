@@ -1,22 +1,11 @@
 {% extends 'base.html' %}
+
+{% load account_form %}
+
 {% block title_name %}
     Регистрация
 {% endblock %}
 
 {% block content %}
-    <div class="d-flex align-items-center justify-content-center flex-column height-100">
-        <div class="d-flex align-items-center flex-column border rounded p-3">
-            <h1>Регистрация</h1>
-            <div class="d-flex flex-column align-items-center">
-                <form method="post">
-                    {% csrf_token %}
-
-                    {{ form.as_div }}
-                    <input type="submit" value="Зарегистрироваться" class="btn s-bg-primary form-control my-2">
-                </form>
-
-                <a href="{% url 'log in' %}" class="cr-light text-decoration-none">Назад</a>
-            </div>
-        </div>
-    </div>
+    {% account_form 'Регистрация' form 'log in' %}
 {% endblock %}

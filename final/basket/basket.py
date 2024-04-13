@@ -1,22 +1,6 @@
 from django.conf import settings
 from shop.models import Product
 
-# 'basket': {
-#     '5': {
-#         'quantity' 4
-#         'price': 1200
-#     }
-# }
-
-# copy
-# 'basket': {
-#     '5': {
-#         'quantity' 4,
-#         'price': 1200,
-#         'product': Product
-#     }
-# }
-
 
 class Basket:
     def __init__(self, request):

@@ -20,7 +20,6 @@ class ParameterSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
     parameters = ParameterSerializer(read_only=True, many=True)
 
     class Meta:
