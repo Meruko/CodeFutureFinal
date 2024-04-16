@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+    {{ action }} заказ
+{% endblock %}
+
+{% block content %}
+    <div class="p-3">
+        <h1 class="my-2">{{ action }} {% if object %}{{ object }}{% else %}заказ{% endif %}</h1>
+
+        <form method="post" class="my-2">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <button type="submit" class="btn btn-outline-success my-2 form-control">{{ action }} заказ</button>
+        </form>
+
+        <a href="{% url 'order_list' %}" class="btn btn-outline-primary my-2">Обратно к списку заказов</a>
+    </div>
+{% endblock %}

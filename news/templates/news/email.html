@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+    Отправка письма
+{% endblock %}
+
+{% block content %}
+    <h1>Отправка письма</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button type="submit" class="btn btn-primary">Отправить письмо</button>
+    </form>
+
+    <a href="{% url 'news' %}" class="btn btn-info">Обратно к списку новостей</a>
+{% endblock %}

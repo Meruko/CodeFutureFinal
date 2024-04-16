@@ -1,0 +1,25 @@
+{% if page_obj.paginator.num_pages > 1 %}
+    <nav class="d-flex justify-content-center">
+        <ul class="pagination">
+{#                Вывод кнопка для предыдущей страницы#}
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span><-</span></a></li>
+            {% endif %}
+
+            {% for p in page_obj.adjusted_elided_pages %}
+                {% if p == page_obj.paginator.ELLIPSIS %}
+                	<li class="page-item"><p class="page-link">{{ p }}</p></li>
+                {% elif p == page_obj.number %}
+                    <li class="page-item"><a class="page-link active">{{ p }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+{#                Вывод кнопка для следующей страницы#}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><span>-></span></a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+    Подробнее о заказе
+{% endblock %}
+
+{% block content %}
+    <div class="p-3">
+        <h1 class="my-2">Подробнее о {{ object }}</h1>
+
+        <p class="my-2">Комментарий: {{ object.comment }}</p>
+        <p class="my-2">Адрес доставки: {{ object.delivery_address }}</p>
+        <p class="my-2">Тип доставки: {{ object.delivery_type }}</p>
+        {% if object.date_finish %}
+            <p class="my-2">Дата завершения: {{ object.date_finish }}</p>
+        {% endif %}
+        <p class="my-2">Состав заказа:</p>
+        <ul class="my-2 list-group">
+            {% for pos in object.pos_order_set.all %}
+                <li class="list-group-item">
+                {{ pos.product.name }}. {{ pos.product.price }} руб. - {{ pos.count }} (Скидка: {{ pos.discount }}%)
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'order_list' %}" class="btn btn-outline-primary my-2">Обратно к списку заказов</a>
+    </div>
+{% endblock %}

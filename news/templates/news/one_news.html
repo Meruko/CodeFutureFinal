@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+	Новость
+{% endblock %}
+
+{% block content %}
+	<h1>Новость</h1>
+
+    <div class="alert alert-warning" style="width: 80%;
+    margin: 0 auto;
+    text-align: center;">
+    <h2>{{ one_news.title }}</h2>
+    <h4>{{ one_news.anons }}</h4>
+    <p>{{ one_news.content }}</p>
+    {{ one_news.date }}<br>
+        {% if perms.news.change_newsbd %}
+            <a href="{% url 'one_news_update' one_news.id %}" > <button class="btn btn-warning">Изменить</button></a>
+        {% endif %}
+        {% if perms.news.delete_newsbd %}
+            <a href="{% url 'one_news_delete' one_news.id %}" >  <button class="btn btn-warning">Удалить (с подтверждением)</button></a>
+            <form method="post" action="{% url 'one_news_delete' one_news.id %}">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger">Удалить (сразу)</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+	Запросы
+{% endblock %}
+
+{% block content %}
+	<h1>Запросы</h1>
+    Количество запросов {{ results.count }}
+    {% for el in results %}
+        <div class="alert alert-warning" style="width: 80%;
+    margin: 0 auto;
+    text-align: center;">
+
+            <h2>  {{ el.title }}</h2>
+            <h4>{{ el.anons }}</h4>
+            <p>  {{ el.content }}</p>
+            {{ el.date }}<br>
+        </div><hr>
+    {% endfor %}
+
+    <form method="get" action="{% url 'news' %}">
+        <button type="submit" class="btn  btn-warning">Назад</button>
+    </form>
+{% endblock %}

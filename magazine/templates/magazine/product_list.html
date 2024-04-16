@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title_name %}
+    Список товаров
+{% endblock %}
+
+{% block additional_links %}
+	<link rel="stylesheet" href="{% static 'magazine/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Список товаров</h1>
+
+    <div class="row">
+        {% for object in object_list %}
+        	<div class="col-4">
+                <div class="card m-2" style="width: 18rem">
+                    {% if object.photo %}
+                        <img class="card-img-top" alt="..." src="{{ object.photo.url }}">
+                    {% else %}
+                        <img class="card-img-top" alt="..." src="{% static 'magazine/image/no_photo.jpg' %}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.name }}</h5>
+                        <p class="card-text">{{ object.price }} руб.</p>
+
+                        <a href="{% url 'product_detail' object.pk %}" class="btn btn-outline-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

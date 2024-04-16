@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+	Удаление
+{% endblock %}
+
+{% block content %}
+	<h1>Удаление записи</h1>
+    <div class="alert alert-warning" style="width: 80%;
+    margin: 0 auto;
+    text-align: center;">
+        <form method="post" style="margin: 0 auto;
+        width: 40%;
+        display: grid">
+            {% csrf_token %}
+
+            <h1>{{ deleted_news.title }}</h1>
+            <h3>{{ deleted_news.anons }}</h3>
+            <p>{{ deleted_news.content }}</p>
+            {{ deleted_news.date}}
+            <br>
+            <button type="submit" class=" btn btn-warning">Удалить</button>
+        </form>
+    </div>
+{% endblock %}

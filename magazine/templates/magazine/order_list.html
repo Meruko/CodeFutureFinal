@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+    Список заказов
+{% endblock %}
+
+{% block content %}
+    <div class="p-3">
+        <h1 class="my-2">Список заказов</h1>
+        {% if perms.magazine.add_order %}
+            <a href="{% url 'order_create' %}" class="btn btn-outline-primary my-2">Создать заказ</a>
+        {% endif %}
+
+        <div class="row">
+            {% for object in object_list %}
+                <div class="col-6">
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ object }}</h5>
+
+                            <a href="{% url 'order_detail' object.pk %}" class="btn btn-outline-info">Подробнее</a>
+                            {% if perms.magazine.change_order %}
+                                <a href="{% url 'order_update' object.pk %}" class="btn btn-outline-success">Изменить</a>
+                            {% endif %}
+                            {% if perms.magazine.delete_order %}
+                                <a href="{% url 'order_delete' object.pk %}" class="btn btn-outline-danger">Удалить</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

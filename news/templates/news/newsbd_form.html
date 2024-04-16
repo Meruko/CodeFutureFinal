@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+	{{ action }} {{ object.title }}
+{% endblock %}
+
+{% block content %}
+	<h1> Новость</h1>
+    <form method="post" style="margin: 0 auto;
+    width: 40%;
+    display: grid">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <button type="submit" class="btn  btn-warning">{{ action }} новость</button>
+    </form>
+{% endblock %}

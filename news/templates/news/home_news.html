@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+	{{ title }}
+{% endblock %}
+
+{% block content %}
+	<h1> Новости </h1>
+
+    {% if perms.news.qwerty %}
+    	<p>Возможность qwerty</p>
+    {% endif %}
+    {% if perms.news.can_smth %}
+    	<p>Право can_smth</p>
+    {% endif %}
+
+    {% if user.is_authenticated  %}
+        {{ request.user.username }}
+        <a href="{% url 'logout_user' %}"> <button class="btn btn-warning">Выйти</button></a>
+        {% if user.is_staff and perms.news.add_newsbd %}
+            <a href="{% url 'news_form' %}"><button class="btn btn-warning"> Создать запись</button></a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login_user' %}" > <button class="btn btn-warning">Авторизироваться</button></a>
+    {% endif %}
+
+    <a href="{% url 'email_page' %}" class="btn btn-info">Отправить письмо</a>
+
+    <form method="get" action="{% url 'search_results' %}">
+        <input type="search" name="q">
+        <button type="submit">Найти</button>
+    </form>
+
+    {% for el in news %}
+        <div class="alert alert-warning" style="width: 80%;
+        margin: 0 auto;
+        text-align: center;">
+            <h2>  {{ el.title }}</h2>
+            <h4>{{ el.anons }}</h4>
+            <p>  {{ el.content }}</p>
+            {{ el.date }}<br>
+            <a href="{% url 'one_news' el.id %}"><button  class="btn btn-warning">Читать дальше</button></a>
+        </div><hr>
+    {% endfor %}
+{% endblock %}

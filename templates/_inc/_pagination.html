@@ -1,0 +1,35 @@
+{% if is_paginated %}
+    <nav class="d-flex justify-content-center">
+        <ul class="pagination">
+{#                Вывод кнопка для предыдущей страницы#}
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span><-</span></a></li>
+            {% endif %}
+
+            {% for p in paginator.page_range %}
+{#                    Вывод текущей страницы#}
+                {% if p == page_obj.number %}
+                    <li class="page-item"><a class="page-link active">{{ p }}</a></li>
+{#                    Вывод предыдущей и 2-ух последующих страниц#}
+                {% elif p >= page_obj.number|add:"-1" and p <= page_obj.number|add:"2" %}
+                    <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                {% else %}
+{#                        Вывод самой первой страницы и промежутка#}
+                    {% if p == 1 %}
+                        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                        <li class="page-item"><p class="page-link">...</p></li>
+{#                        Вывод самой последней страницы и промежутка#}
+                    {% elif p == paginator.num_pages %}
+                        <li class="page-item"><p class="page-link">...</p></li>
+                        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+{#                Вывод кнопка для следующей страницы#}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}"><span>-></span></a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

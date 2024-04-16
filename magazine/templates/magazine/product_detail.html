@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title_name %}
+	Подробнее о товаре
+{% endblock %}
+
+{% block content %}
+    <div class="p-3">
+        <h1 class="my-2">Подробнее о {{ object.name }}</h1>
+
+        <table class="table table-bordered my-2">
+            <thead>
+            <tr>
+                <th>Информация</th>
+                <th>Изображение</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td>
+                <div>
+                    <h2>Цена: {{ object.price }} руб.</h2>
+                    <h3>Категория: {{ object.category.name }}</h3>
+                    {% if object.description %}
+                        <p>Описание: {{ object.description }}</p>
+                    {% endif %}
+                </div>
+            </td>
+            <td>
+                {% if object.photo %}
+                    <img class="card-img-top" alt="..." src="{{ object.photo.url }}">
+                {% else %}
+                    <img class="card-img-top" alt="..." src="{% static 'magazine/image/no_photo.jpg' %}">
+                {% endif %}
+            </td>
+            </tbody>
+        </table>
+
+        <form method="post" action="{% url 'basket_add' object.pk %}" class="my-2">
+            {% csrf_token %}
+            {{ form_basket }}
+            <button type="submit" class="btn btn-outline-success my-2">Добавить в корзину</button>
+        </form>
+
+        <a href="{% url 'product_list' %}" class="btn btn-outline-primary my-2">Обратно к каталогу товаров</a>
+    </div>
+{% endblock %}

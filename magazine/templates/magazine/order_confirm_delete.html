@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+    Подтверждение удаления заказа
+{% endblock %}
+
+{% block content %}
+    <div class="p-3">
+        <h1 class="my-2">Вы действительно хотите удалить заказ {{ object }}?</h1>
+
+        <form method="post" class="my-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger my-2 form-control">Удалить заказ</button>
+        </form>
+
+        <a href="{% url 'order_list' %}" class="btn btn-outline-primary my-2">Обратно к списку заказов</a>
+    </div>
+{% endblock %}
