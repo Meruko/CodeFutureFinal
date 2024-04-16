@@ -36,7 +36,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'customer', 'date_create')
+    list_display = ('pk', 'customer', 'price', 'date_create')
     list_display_links = ('pk', )
     search_fields = ('customer', )
     list_editable = ('customer', )
