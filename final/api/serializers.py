@@ -1,23 +1,24 @@
 from shop.models import *
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = [
+            'pk',
             'name',
             'description'
         ]
-
 
 class ParameterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Parameter
         fields = [
-            'name',
+            'pk',
+            'name'
         ]
-
 
 class ProductSerializer(serializers.ModelSerializer):
     parameters = ParameterSerializer(read_only=True, many=True)
@@ -25,6 +26,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            'pk',
             'name',
             'description',
             'price',
@@ -36,14 +38,11 @@ class ProductSerializer(serializers.ModelSerializer):
             'parameters'
         ]
 
-
 class Pos_parameterSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
-    parameter = ParameterSerializer(read_only=True)
-
     class Meta:
         model = Pos_parameter
         fields = [
+            'pk',
             'product',
             'parameter',
             'value'
@@ -55,40 +54,31 @@ class ProductOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            'pk',
             'name',
-            'category',
+            'price',
+            'category'
         ]
-
-
-class CustomerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            'username',
-        ]
-
 
 class OrderSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer(read_only=True)
-    products = ProductOrderSerializer(read_only=True)
+    products = ProductOrderSerializer(read_only=True, many=True)
 
     class Meta:
         model = Order
         fields = [
+            'pk',
             'customer',
             'date_create',
             'date_finish',
+            'price',
             'products'
         ]
 
-
 class Pos_orderSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
-    order = OrderSerializer(read_only=True)
-
     class Meta:
         model = Pos_order
         fields = [
+            'pk',
             'product',
             'order',
             'count'

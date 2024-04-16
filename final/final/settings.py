@@ -140,8 +140,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'smptmailforme@mail.ru'
+EMAIL_HOST_PASSWORD = 's2DraJxHH59d7frv9mLE'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
