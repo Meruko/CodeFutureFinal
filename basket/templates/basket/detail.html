@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+	Ваша корзина
+{% endblock %}
+
+{% block content %}
+	<h1>Ваша корзина</h1>
+    <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Изображение</th>
+        <th>Товар</th>
+        <th>Количество</th>
+        <th>Цена за единицу</th>
+        <th>Цена за позицию</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in basket %}
+    	{% with product=item.product %}
+    		<tr>
+            <td>
+                {% if product.photo %}
+                    <img src="{{ product.photo.url }}" class="card-img-top" alt="...">
+                {% else %}
+                    <img src="{% static 'shop/images/no_photo.jpg' %}" class="card-img-top" alt="...">
+                {% endif %}
+            </td>
+            <td><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></td>
+            <td>{{ item.quantity }} шт.</td>
+            <td>{{ item.price }} руб.</td>
+            <td>{{ item.total_price }} руб.</td>
+            <td><a href="{% url 'basket_remove' product.pk %}" class="btn btn-danger">Удалить из корзины</a></td>
+            </tr>
+    	{% endwith %}
+    {% endfor %}
+    <tr>
+        <td colspan="2">Всего:</td>
+        <td>{{ basket|length }} шт.</td>
+        <td colspan="2">{{ basket.get_total_price }} руб.</td>
+        <td><a href="{% url 'basket_clear' product.pk %}" class="btn btn-danger">Очистить корзину</a></td>
+    </tr>
+    </tbody>
+    </table>
+    <p class="text-right">
+        <a href="{% url 'product_list' %}" class="btn btn-outline-primary my-2">Обратно к каталогу мебели</a>
+    {% if basket|length > 0 %}
+    	<a href="{% url 'basket_buy' product.pk %}" class="btn btn-outline-success">Купить</a>
+    {% endif %}
+    </p>
+{% endblock %}
