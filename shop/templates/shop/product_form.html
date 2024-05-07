@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title_name %}
+	{{ action }} {{ object }}
+{% endblock %}
+
+{% block content %}
+	<h1>{{ action }} {{ object }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button type="submit" class="btn btn-primary my-1">{{ action }} товар</button>
+    </form>
+
+    <a href="{% url 'product_list' %}" class="btn btn-outline-primary my-2">Обратно к списку техники</a>
+{% endblock %}
