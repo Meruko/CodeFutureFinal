@@ -48,7 +48,7 @@ class Green(models.Model):
     price = models.FloatField(verbose_name='Стоимость')
     date_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     date_update = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
-    photo = models.ImageField(upload_to='image/%Y/%m/%d', verbose_name='Фотография')
+    photo = models.ImageField(upload_to='image/%Y/%m/%d', null=True, blank=True, verbose_name='Фотография')
     exists = models.BooleanField(default=True, verbose_name='Существует')
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
@@ -56,6 +56,9 @@ class Green(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.category}'
+
+    def get_absolute_url(self):
+        return reverse_lazy('product_detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = 'Растение'

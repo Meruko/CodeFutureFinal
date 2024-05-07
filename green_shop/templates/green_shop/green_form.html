@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title_name %}
+	{{ action }} {% if object %}{{ object }}{% else %}товар{% endif %}
+{% endblock %}
+{% block content %}
+    <h1>{{ action }} {% if object %}{{ object }}{% else %}товар{% endif %}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button type="submit" class="btn btn-primary my-2">{{ action }} товар</button>
+    </form>
+    <a class="btn btn-outline-primary my-2" href="{% url 'product_list' %}">Обратно к каталогу товаров</a>
+{% endblock %}

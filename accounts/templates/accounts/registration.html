@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load account_form %}
+
+{% block title_name %}
+	Регистрация
+{% endblock %}
+
+{% block content %}
+	{% account_form 'Регистрация' form 'log in' %}
+{% endblock %}

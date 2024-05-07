@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title_name %}
+    Удаление {{ object }}
+{% endblock %}
+{% block content %}
+    <h1>Вы действительно хотите удалить товар {{ object }}?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger my-2">Подтвердить удаление</button>
+    </form>
+    <a class="btn btn-outline-primary my-2" href="{% url 'product_list' %}">Обратно к каталогу товаров</a>
+{% endblock %}
